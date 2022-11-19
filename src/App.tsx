@@ -52,7 +52,7 @@ const App = () => {
           <Checkbox isChecked={item.isDone} onChange={() => onToggle(index)} />
           <Text>{item.content}</Text>
           <Button onClick={() => onDelete(item.id)} disabled={!item.isDone}>
-            Delete
+            aaaaa
           </Button>
         </Flex>
       ))}
