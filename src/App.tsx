@@ -1,28 +1,25 @@
-import { Button, Checkbox, Flex, Input, Text } from "@chakra-ui/react";
+import { Button, Center, Checkbox, Flex, Input, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { todolistState } from "./global/state";
+import { TodoListState } from "./global/state";
 import { Todo } from "./global/types";
 
 const App = () => {
-  const [data, setData] = useRecoilState(todolistState);
-  const [inputText, setInputText] = useState("");
+  const [input, setInput] = useState("");
+  const [data, setData] = useRecoilState(TodoListState);
+  console.log(data);
 
-  const onSubmit = () => {
+  const submit = () => {
     const item: Todo = {
       id: Math.random(),
-      content: inputText,
+      content: input,
       isDone: false,
     };
     setData([...data, item]);
-    setInputText("");
+    setInput("");
   };
 
-  const onDelete = (a: number) => {
-    const item: Todo[] = data.filter((todo) => todo.id !== a);
-    setData(item);
-  };
-
+  // i は　indexと同じ意味
   const onToggle = (i: number) => {
     const item: Todo = {
       ...data[i],
@@ -32,35 +29,34 @@ const App = () => {
     setData(items);
   };
 
+  const onDelete = (a: number) => {
+    const item: Todo[] = data.filter((todo) => todo.id !== a);
+    setData(item);
+    console.log(a);
+  };
+
   return (
-    <div style={{ padding: "20px" }}>
-      <Flex mb={8}>
+    <Center flexDirection={"column"} p={20}>
+      <Flex>
         <Input
-          width={"50vw"}
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-          mr={4}
-        />
-        <Button onClick={onSubmit}>ボタン</Button>
+          value={input}
+          onChange={(e) => {
+            setInput(e.target.value);
+          }}
+        ></Input>
+        <Button onClick={submit}>ADD</Button>
       </Flex>
+
       {data.map((item, index) => (
-        <Flex key={item.id} mb={4}>
-          <Checkbox
-            isChecked={item.isDone}
-            onChange={() => onToggle(index)}
-            mr={4}
-          />
-          <Text pt={2}>{item.content}</Text>
-          <Button
-            ml={4}
-            onClick={() => onDelete(item.id)}
-            disabled={!item.isDone}
-          >
-            削除
+        <Flex key={item.id}>
+          <Checkbox isChecked={item.isDone} onChange={() => onToggle(index)} />
+          <Text>{item.content}</Text>
+          <Button onClick={() => onDelete(item.id)} disabled={!item.isDone}>
+            Delete
           </Button>
         </Flex>
       ))}
-    </div>
+    </Center>
   );
 };
 
