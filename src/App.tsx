@@ -1,11 +1,11 @@
 import { Button, Checkbox, Flex, Input, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { todolistState } from "./global/state";
+import { TodoListState } from "./global/state";
 import { Todo } from "./global/types";
 
 const App = () => {
-  const [data, setData] = useRecoilState(todolistState);
+  const [data, setData] = useRecoilState(TodoListState);
   const [inputText, setInputText] = useState("");
 
   const onSubmit = () => {
