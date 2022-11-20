@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import { Button, Center, Checkbox, Flex, Input, Text } from "@chakra-ui/react";
-import { useState } from "react";
-import { useRecoilState } from "recoil";
-import { TodoListState } from "./global/state";
-import { Todo } from "./global/types";
-
-const App = () => {
-  const [input, setInput] = useState("");
-  const [data, setData] = useRecoilState(TodoListState);
-
-  const submit = () => {
-=======
 import { Button, Checkbox, Flex, Input, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
@@ -22,61 +9,15 @@ const App = () => {
   const [inputText, setInputText] = useState("");
 
   const onSubmit = () => {
->>>>>>> parent of 5077b66 (firestore connect)
     const item: Todo = {
       id: Math.random(),
-      content: input,
+      content: inputText,
       isDone: false,
     };
     setData([...data, item]);
-<<<<<<< HEAD
-    setInput("");
-  };
-
-  const onToggle = (i: number) => {
-    const item: Todo = {
-      ...data[i],
-      isDone: !data[i].isDone,
-    };
-    const items: Todo[] = [...data.slice(0, i), item, ...data.slice(i + 1)];
-    setData(items);
-  };
-
-  const onDelete = (a: number) => {
-    const item: Todo[] = data.filter((todo) => todo.id !== a);
-    setData(item);
-  };
-
-  return (
-    <>
-      <Center flexDirection={"column"} p={20}>
-        <Flex>
-          <Input value={input} onChange={(e) => setInput(e.target.value)} />
-          <Button onClick={submit}>ADD</Button>
-        </Flex>
-        {data.map((item, index) => (
-          <Flex key={item.id}>
-            <Checkbox
-              isChecked={item.isDone}
-              onChange={() => onToggle(index)}
-            />
-            <Text>{item.content}</Text>
-            <Button onClick={() => onDelete(item.id)} disabled={!item.isDone}>
-              Delete
-            </Button>
-          </Flex>
-        ))}
-      </Center>
-    </>
-=======
     setInputText("");
   };
 
-  const onDelete = (a: number) => {
-    const item: Todo[] = data.filter((todo) => todo.id !== a);
-    setData(item);
-  };
-
   const onToggle = (i: number) => {
     const item: Todo = {
       ...data[i],
@@ -84,6 +25,11 @@ const App = () => {
     };
     const items: Todo[] = [...data.slice(0, i), item, ...data.slice(i + 1)];
     setData(items);
+  };
+
+  const onDelete = (a: number) => {
+    const item: Todo[] = data.filter((todo) => todo.id !== a);
+    setData(item);
   };
 
   return (
@@ -115,7 +61,6 @@ const App = () => {
         </Flex>
       ))}
     </div>
->>>>>>> parent of 5077b66 (firestore connect)
   );
 };
 
